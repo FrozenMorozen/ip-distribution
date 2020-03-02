@@ -26,8 +26,7 @@ public class Controller {
     try {
       return ipForDeviceService.getIpForNextDevice(ip);
     } catch (IllegalArgumentException ex) {
-      // Обработать, что некорректные данные
-      log.error(String.format("Передан некорректный параметр %s", ip));
+      log.error(String.format("Передан некорректный параметр \"%s\"", ip));
       return null;
     } catch (OutOfIpRangeException ex) {
       // Обработать, что данных не найдено

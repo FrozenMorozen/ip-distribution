@@ -52,7 +52,7 @@ public class SubnetServiceImpl implements SubnetService {
 
   @Override
   public int convertIntFromIp(String address) {
-    validateIp(address);
+    validateIpAddress(address);
 
     Matcher matcher = addressPattern.matcher(address);
     int addr = 0;
@@ -70,9 +70,13 @@ public class SubnetServiceImpl implements SubnetService {
 
   @Override
   public void validateIp(String ip) throws IllegalArgumentException {
-    Matcher matcher = addressPattern.matcher(ip);
+    validateIpAddress(ip);
+  }
+
+  private void validateIpAddress(String ipAddress) {
+    Matcher matcher = addressPattern.matcher(ipAddress);
     if (!matcher.matches()) {
-      throw new IllegalArgumentException("Could not parse [" + ip + "]");
+      throw new IllegalArgumentException("Could not parse [" + ipAddress + "]");
     }
   }
 }

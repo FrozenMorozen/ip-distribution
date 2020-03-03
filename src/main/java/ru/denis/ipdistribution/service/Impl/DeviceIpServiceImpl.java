@@ -1,13 +1,12 @@
-package ru.denis.ipdistribution.service.impl;
+package ru.denis.ipdistribution.service.Impl;
 
 import org.apache.commons.net.util.SubnetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.denis.ipdistribution.common.service.SubnetCalculatorService;
+import ru.denis.ipdistribution.common.service.SubnetService;
 import ru.denis.ipdistribution.configuration.BusinessConfiguration;
-import ru.denis.ipdistribution.exception.service.OutOfIpRangeException;
 import ru.denis.ipdistribution.service.DeviceIpService;
-import ru.denis.ipdistribution.service.SubnetCalculatorService;
-import ru.denis.ipdistribution.service.SubnetService;
 
 @Service
 public class DeviceIpServiceImpl implements DeviceIpService {
@@ -24,17 +23,18 @@ public class DeviceIpServiceImpl implements DeviceIpService {
   }
 
   @Override
-  public String getIpForNextDevice(String previousDeviceIp) throws OutOfIpRangeException, IllegalArgumentException {
+  public String getIpForNextDevice(String previousDeviceIp) {
 
-    // Проверить входящий ip устройства
+    // Проверить ip предыдущего устройства
     subnetService.checkDeviceIp(previousDeviceIp, businessConfiguration.getGlobalNetworkMask());
 
     // Подсеть для входящего ip устройства
-    SubnetUtils previousSubnet = subnetService.getRangeSubnetForIp(previousDeviceIp, businessConfiguration.getDeviceIpRangeMask());
+    SubnetUtils previousSubnet = subnetService.getSubnetForDeviceIp(previousDeviceIp, businessConfiguration.getDeviceIpRangeMask());
 
     // Следущая подсеть
     SubnetUtils nextSubnet = subnetCalculatorService.getNextSubnetForPrevious(previousSubnet);
 
+    // ip устройства
     return subnetService.getDeviceIp(nextSubnet, businessConfiguration.getGlobalNetworkMask());
   }
 

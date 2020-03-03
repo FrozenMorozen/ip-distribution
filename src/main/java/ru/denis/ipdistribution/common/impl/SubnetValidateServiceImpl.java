@@ -1,9 +1,9 @@
-package ru.denis.ipdistribution.service.impl;
+package ru.denis.ipdistribution.common.impl;
 
 import org.apache.commons.net.util.SubnetUtils;
 import org.springframework.stereotype.Service;
-import ru.denis.ipdistribution.exception.service.OutOfIpRangeException;
-import ru.denis.ipdistribution.service.SubnetValidateService;
+import ru.denis.ipdistribution.common.exception.OutOfIpRangeException;
+import ru.denis.ipdistribution.common.service.SubnetValidateService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

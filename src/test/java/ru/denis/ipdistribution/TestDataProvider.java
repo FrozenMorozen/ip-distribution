@@ -1,9 +1,9 @@
 package ru.denis.ipdistribution;
 
+import ru.denis.ipdistribution.common.impl.SubnetServiceImpl;
+import ru.denis.ipdistribution.common.impl.SubnetValidateServiceImpl;
+import ru.denis.ipdistribution.common.service.SubnetService;
 import ru.denis.ipdistribution.configuration.BusinessConfiguration;
-import ru.denis.ipdistribution.service.SubnetService;
-import ru.denis.ipdistribution.service.impl.SubnetServiceImpl;
-import ru.denis.ipdistribution.service.impl.SubnetValidateServiceImpl;
 
 public class TestDataProvider {
 

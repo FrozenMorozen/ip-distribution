@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.denis.ipdistribution.exception.controller.InvalidIpException;
-import ru.denis.ipdistribution.exception.controller.NotFoundException;
-import ru.denis.ipdistribution.exception.service.OutOfIpRangeException;
+import ru.denis.ipdistribution.common.exception.OutOfIpRangeException;
+import ru.denis.ipdistribution.controller.exception.InvalidIpException;
+import ru.denis.ipdistribution.controller.exception.NotFoundException;
 import ru.denis.ipdistribution.service.DeviceIpService;
 
 @RestController

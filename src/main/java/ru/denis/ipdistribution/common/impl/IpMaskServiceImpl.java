@@ -1,7 +1,7 @@
-package ru.denis.ipdistribution.service.impl;
+package ru.denis.ipdistribution.common.impl;
 
 import org.springframework.stereotype.Service;
-import ru.denis.ipdistribution.service.IpMaskService;
+import ru.denis.ipdistribution.common.service.IpMaskService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

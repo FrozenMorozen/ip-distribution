@@ -1,4 +1,4 @@
-package ru.denis.ipdistribution.service;
+package ru.denis.ipdistribution.common.service;
 
 import org.apache.commons.net.util.SubnetUtils;
 
@@ -8,7 +8,7 @@ import org.apache.commons.net.util.SubnetUtils;
 public interface SubnetService {
 
   /**
-   * Получить IP устройства в глобальной сети
+   * Получить IP устройства в глобальной сети из подсети
    *
    * @param subnet            подсеть для выделения IP для устройства
    * @param globalNetworkMask маска глобальной сети (в формате XXX.XXX.XXX.XXX/XX)
@@ -21,7 +21,7 @@ public interface SubnetService {
    * @param deviceIp  IP устройства
    * @param rangeMask маска подсети
    */
-  SubnetUtils getRangeSubnetForIp(String deviceIp, String rangeMask);
+  SubnetUtils getSubnetForDeviceIp(String deviceIp, String rangeMask);
 
   /**
    * Проверить IP устройства в глобальной сети

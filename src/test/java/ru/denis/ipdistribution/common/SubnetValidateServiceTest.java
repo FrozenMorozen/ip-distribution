@@ -1,11 +1,12 @@
-package ru.denis.ipdistribution.service;
+package ru.denis.ipdistribution.common;
 
 import org.apache.commons.net.util.SubnetUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.denis.ipdistribution.service.impl.SubnetValidateServiceImpl;
+import ru.denis.ipdistribution.common.impl.SubnetValidateServiceImpl;
+import ru.denis.ipdistribution.common.service.SubnetValidateService;
 
 import java.util.stream.Stream;
 

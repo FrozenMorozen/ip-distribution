@@ -1,19 +1,19 @@
-package ru.denis.ipdistribution.service;
+package ru.denis.ipdistribution.common.service;
 
 import org.apache.commons.net.util.SubnetUtils;
 
 /**
- * Сервис валидации для работы с подстетью
+ * Сервис валидации для работы с ip адресами в подсети
  */
 public interface SubnetValidateService {
 
   /**
-   * Валидацмя ip адреса
+   * Валидация формата ip адреса
    */
   void validateIpFormat(String ipAddress);
 
   /**
-   * Принадлежит ли ip глобальной подсети
+   * Принадлежит ли ip глобальной сети
    *
    * @param ip            ip для проверки
    * @param globalNetwork глобальная сеть (в формате XXX.XXX.XXX.XXX/XX)

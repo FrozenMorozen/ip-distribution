@@ -1,11 +1,11 @@
-package ru.denis.ipdistribution.service.impl;
+package ru.denis.ipdistribution.common.impl;
 
 import org.apache.commons.net.util.SubnetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.denis.ipdistribution.exception.service.OutOfIpRangeException;
-import ru.denis.ipdistribution.service.SubnetService;
-import ru.denis.ipdistribution.service.SubnetValidateService;
+import ru.denis.ipdistribution.common.exception.OutOfIpRangeException;
+import ru.denis.ipdistribution.common.service.SubnetService;
+import ru.denis.ipdistribution.common.service.SubnetValidateService;
 
 @Service
 public class SubnetServiceImpl implements SubnetService {
@@ -32,7 +32,7 @@ public class SubnetServiceImpl implements SubnetService {
   }
 
   @Override
-  public SubnetUtils getRangeSubnetForIp(String deviceIp, String rangeMask) {
+  public SubnetUtils getSubnetForDeviceIp(String deviceIp, String rangeMask) {
     SubnetUtils subnet = new SubnetUtils(deviceIp + rangeMask);
     try {
       subnetValidateService.isItDeviceIpForSubnet(deviceIp, subnet);

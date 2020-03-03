@@ -1,4 +1,4 @@
-package ru.denis.ipdistribution.service;
+package ru.denis.ipdistribution.common.service;
 
 /**
  * Сервис для работы с масками IP

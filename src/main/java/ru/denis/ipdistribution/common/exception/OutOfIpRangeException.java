@@ -1,4 +1,4 @@
-package ru.denis.ipdistribution.exception.service;
+package ru.denis.ipdistribution.common.exception;
 
 import lombok.NoArgsConstructor;
 

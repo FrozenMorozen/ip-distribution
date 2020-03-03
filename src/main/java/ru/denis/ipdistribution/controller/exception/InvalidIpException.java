@@ -1,4 +1,4 @@
-package ru.denis.ipdistribution.exception.controller;
+package ru.denis.ipdistribution.controller.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

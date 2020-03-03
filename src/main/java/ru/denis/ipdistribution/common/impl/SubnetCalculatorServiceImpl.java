@@ -1,10 +1,10 @@
-package ru.denis.ipdistribution.service.impl;
+package ru.denis.ipdistribution.common.impl;
 
 import org.apache.commons.net.util.SubnetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.denis.ipdistribution.service.IpMaskService;
-import ru.denis.ipdistribution.service.SubnetCalculatorService;
+import ru.denis.ipdistribution.common.service.IpMaskService;
+import ru.denis.ipdistribution.common.service.SubnetCalculatorService;
 
 @Service
 public class SubnetCalculatorServiceImpl implements SubnetCalculatorService {

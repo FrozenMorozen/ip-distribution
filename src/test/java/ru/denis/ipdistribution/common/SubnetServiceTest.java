@@ -1,15 +1,17 @@
-package ru.denis.ipdistribution.service;
+package ru.denis.ipdistribution.common;
 
 import org.apache.commons.net.util.SubnetUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.denis.ipdistribution.exception.service.OutOfIpRangeException;
+import ru.denis.ipdistribution.common.exception.OutOfIpRangeException;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.denis.ipdistribution.TestDataProvider.*;
 
 class SubnetServiceTest {
@@ -39,21 +41,21 @@ class SubnetServiceTest {
   @MethodSource("correctNextDeviceIpDataProvider")
   @DisplayName("SubnetService.getDeviceIp(...): тест с НЕвалидными параметрами")
   void getDeviceIpCorrect(SubnetUtils subnet, String expectedResult) {
-    assertEquals(subnetService.getDeviceIp(subnet, GLOBAL_NETWORK_MASK), expectedResult);
+    Assertions.assertEquals(subnetService.getDeviceIp(subnet, GLOBAL_NETWORK_MASK), expectedResult);
   }
 
   @ParameterizedTest
   @MethodSource("wrongRangeSubnetForIpDataProvider")
   @DisplayName("SubnetService.createRangeSubnetForIp(...): тест с НЕвалидными параметрами")
   void createRangeSubnetForIpWrong(String deviceIp) {
-    assertThrows(IllegalArgumentException.class, () -> subnetService.getRangeSubnetForIp(deviceIp, DEVICE_RANGE_MASK));
+    assertThrows(IllegalArgumentException.class, () -> subnetService.getSubnetForDeviceIp(deviceIp, DEVICE_RANGE_MASK));
   }
 
   @ParameterizedTest
   @MethodSource("correctRangeSubnetForIpDataProvider")
   @DisplayName("SubnetService.createRangeSubnetForIp(...): тест с корректными параметрами")
   void createRangeSubnetForIpCorrect(String deviceIp, SubnetUtils expectedResult) {
-    assertEquals(subnetService.getRangeSubnetForIp(deviceIp, DEVICE_RANGE_MASK).getInfo().toString(),
+    Assertions.assertEquals(subnetService.getSubnetForDeviceIp(deviceIp, DEVICE_RANGE_MASK).getInfo().toString(),
             expectedResult.getInfo().toString());
   }
 

@@ -1,4 +1,4 @@
-package ru.denis.ipdistribution.service;
+package ru.denis.ipdistribution.common.service;
 
 import org.apache.commons.net.util.SubnetUtils;
 

@@ -1,9 +1,9 @@
 package ru.denis.ipdistribution.service;
 
 /**
- * Сервис для предоставления ip адресов устрйствам
+ * Сервис для предоставления ip адресов устройствам
  */
-public interface IpForDeviceService {
+public interface DeviceIpService {
 
   /**
    * Получить ip адрес для следующего устройства

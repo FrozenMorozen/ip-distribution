@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.denis.ipdistribution.exception.controller.InvalidIpException;
 import ru.denis.ipdistribution.exception.controller.NotFoundException;
 import ru.denis.ipdistribution.exception.service.OutOfIpRangeException;
-import ru.denis.ipdistribution.service.IpForDeviceService;
+import ru.denis.ipdistribution.service.DeviceIpService;
 
 @RestController
 @RequestMapping("getnextip")
 @Slf4j
 public class Controller {
 
-  private IpForDeviceService ipForDeviceService;
+  private DeviceIpService deviceIpService;
 
   @Autowired
-  public Controller(IpForDeviceService ipForDeviceService) {
-    this.ipForDeviceService = ipForDeviceService;
+  public Controller(DeviceIpService deviceIpService) {
+    this.deviceIpService = deviceIpService;
   }
 
   @GetMapping("/{ip}")
   public String getNextIpForPrevious(@PathVariable("ip") String ip) {
     try {
-      String ipForNextDevice = ipForDeviceService.getIpForNextDevice(ip);
+      String ipForNextDevice = deviceIpService.getIpForNextDevice(ip);
       log.info(String.format("IP для следующего утройства = %s", ipForNextDevice));
       return ipForNextDevice + "\n";
 

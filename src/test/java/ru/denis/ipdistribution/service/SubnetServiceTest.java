@@ -10,13 +10,9 @@ import ru.denis.ipdistribution.exception.service.OutOfIpRangeException;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ru.denis.ipdistribution.TestDataProvider.businessConfiguration;
-import static ru.denis.ipdistribution.TestDataProvider.subnetService;
+import static ru.denis.ipdistribution.TestDataProvider.*;
 
 class SubnetServiceTest {
-
-  private static final String GLOBAL_NETWORK_MASK = businessConfiguration.getGlobalNetworkMask();
-  private static final String DEVICE_RANGE_MASK = businessConfiguration.getDeviceIpRangeMask();
 
   @ParameterizedTest
   @MethodSource("wrongDeviceIpDataProvider")
@@ -28,36 +24,36 @@ class SubnetServiceTest {
   @ParameterizedTest
   @MethodSource("correctDeviceIpDataProvider")
   @DisplayName("SubnetService.checkDeviceIp(...): тест с корректными параметрами")
-  void checkDeviceCorrectIp(String deviceIp, String globalNetworkMask) {
-    assertDoesNotThrow(() -> subnetService.checkDeviceIp(deviceIp, globalNetworkMask));
+  void checkDeviceCorrectIp(String deviceIp) {
+    assertDoesNotThrow(() -> subnetService.checkDeviceIp(deviceIp, GLOBAL_NETWORK_MASK));
   }
 
   @ParameterizedTest
   @MethodSource("wrongNextDeviceIpDataProvider")
-  @DisplayName("SubnetService.getNextDeviceIp(...): тест с НЕвалидными параметрами")
-  void getNextDeviceIpWrong(SubnetUtils subnet) {
-    assertThrows(OutOfIpRangeException.class, () -> subnetService.getNextDeviceIp(subnet, GLOBAL_NETWORK_MASK));
+  @DisplayName("SubnetService.getDeviceIp(...): тест с НЕвалидными параметрами")
+  void getDeviceIpWrong(SubnetUtils subnet) {
+    assertThrows(OutOfIpRangeException.class, () -> subnetService.getDeviceIp(subnet, GLOBAL_NETWORK_MASK));
   }
 
   @ParameterizedTest
   @MethodSource("correctNextDeviceIpDataProvider")
-  @DisplayName("SubnetService.getNextDeviceIp(...): тест с НЕвалидными параметрами")
-  void getNextDeviceIpCorrect(SubnetUtils subnet, String expectedResult) {
-    assertEquals(subnetService.getNextDeviceIp(subnet, GLOBAL_NETWORK_MASK), expectedResult);
+  @DisplayName("SubnetService.getDeviceIp(...): тест с НЕвалидными параметрами")
+  void getDeviceIpCorrect(SubnetUtils subnet, String expectedResult) {
+    assertEquals(subnetService.getDeviceIp(subnet, GLOBAL_NETWORK_MASK), expectedResult);
   }
 
   @ParameterizedTest
   @MethodSource("wrongRangeSubnetForIpDataProvider")
   @DisplayName("SubnetService.createRangeSubnetForIp(...): тест с НЕвалидными параметрами")
   void createRangeSubnetForIpWrong(String deviceIp) {
-    assertThrows(IllegalArgumentException.class, () -> subnetService.createRangeSubnetForIp(deviceIp, DEVICE_RANGE_MASK));
+    assertThrows(IllegalArgumentException.class, () -> subnetService.getRangeSubnetForIp(deviceIp, DEVICE_RANGE_MASK));
   }
 
   @ParameterizedTest
   @MethodSource("correctRangeSubnetForIpDataProvider")
   @DisplayName("SubnetService.createRangeSubnetForIp(...): тест с корректными параметрами")
   void createRangeSubnetForIpCorrect(String deviceIp, SubnetUtils expectedResult) {
-    assertEquals(subnetService.createRangeSubnetForIp(deviceIp, DEVICE_RANGE_MASK).getInfo().toString(),
+    assertEquals(subnetService.getRangeSubnetForIp(deviceIp, DEVICE_RANGE_MASK).getInfo().toString(),
             expectedResult.getInfo().toString());
   }
 
@@ -81,15 +77,16 @@ class SubnetServiceTest {
 
   private static Stream<Arguments> wrongNextDeviceIpDataProvider() {
     return Stream.of(
-            Arguments.of(new SubnetUtils("172.28.255.253" + DEVICE_RANGE_MASK))
+            Arguments.of(new SubnetUtils("172.29.0.0" + DEVICE_RANGE_MASK))
     );
   }
 
   private static Stream<Arguments> correctNextDeviceIpDataProvider() {
     return Stream.of(
-            Arguments.of(new SubnetUtils("172.28.0.1" + DEVICE_RANGE_MASK), "172.28.0.5"),
-            Arguments.of(new SubnetUtils("172.28.0.5" + DEVICE_RANGE_MASK), "172.28.0.9"),
-            Arguments.of(new SubnetUtils("172.28.0.45" + DEVICE_RANGE_MASK), "172.28.0.49")
+            Arguments.of(new SubnetUtils("172.28.0.0" + DEVICE_RANGE_MASK), "172.28.0.1"),
+            Arguments.of(new SubnetUtils("172.28.0.4" + DEVICE_RANGE_MASK), "172.28.0.5"),
+            Arguments.of(new SubnetUtils("172.28.0.8" + DEVICE_RANGE_MASK), "172.28.0.9"),
+            Arguments.of(new SubnetUtils("172.28.0.48" + DEVICE_RANGE_MASK), "172.28.0.49")
     );
   }
 

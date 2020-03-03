@@ -11,9 +11,9 @@ public class TestDataProvider {
   public static SubnetService subnetService;
 
   static {
-    businessConfiguration.setIpGlobalRange("172.28.0.0/16");
-    businessConfiguration.setIpPickRangeValue("/30");
-    subnetService = new SubnetServiceImpl(new SubnetValidateServiceImpl(), businessConfiguration);
+    businessConfiguration.setGlobalNetworkMask("172.28.0.0/16");
+    businessConfiguration.setDeviceIpRangeMask("/30");
+    subnetService = new SubnetServiceImpl(new SubnetValidateServiceImpl());
   }
 
 }

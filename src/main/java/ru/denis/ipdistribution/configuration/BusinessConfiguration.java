@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 public class BusinessConfiguration {
 
   @Value("${ip.global.range}")
-  private String ipGlobalRange;
+  private String globalNetworkMask;
 
   @Value("${ip.pick.range.value}")
-  private String ipPickRangeValue;
+  private String deviceIpRangeMask;
 }

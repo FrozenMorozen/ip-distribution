@@ -1,20 +1,21 @@
-package ru.denis.ipdistribution.service.impl;
+package ru.denis.ipdistribution.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.denis.ipdistribution.service.IpForDeviceService;
+import ru.denis.ipdistribution.service.impl.IpForDeviceServiceImpl;
 
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static ru.denis.ipdistribution.TestDataProvider.businessConfiguration;
 import static ru.denis.ipdistribution.TestDataProvider.subnetService;
 
-class IpForDeviceServiceImplTest {
+class IpForDeviceServiceTest {
 
-  private static IpForDeviceService ipForDeviceService = new IpForDeviceServiceImpl(subnetService);
+  private static IpForDeviceService ipForDeviceService = new IpForDeviceServiceImpl(subnetService, businessConfiguration);
 
   @ParameterizedTest
   @MethodSource("correctIpsDataProvider")

@@ -28,7 +28,7 @@ public class Controller {
     try {
       String ipForNextDevice = ipForDeviceService.getIpForNextDevice(ip);
       log.info(String.format("IP для следующего утройства = %s", ipForNextDevice));
-      return ipForNextDevice;
+      return ipForNextDevice + "\n";
 
     } catch (IllegalArgumentException ex) {
       log.error(ex.getMessage());

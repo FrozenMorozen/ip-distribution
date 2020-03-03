@@ -15,15 +15,15 @@ public class SubnetValidateServiceImpl implements SubnetValidateService {
   private static final Pattern addressPattern = Pattern.compile(IP_ADDRESS);
 
   @Override
-  public void containsIpInGlobalRange(String ip, String globalSubnet) {
-    SubnetUtils.SubnetInfo subnet = new SubnetUtils(globalSubnet).getInfo();
+  public void containsIpInGlobalNetwork(String ip, String globalNetwork) {
+    SubnetUtils.SubnetInfo subnet = new SubnetUtils(globalNetwork).getInfo();
     if (!subnet.isInRange(ip)) {
       throw new OutOfIpRangeException();
     }
   }
 
   @Override
-  public void itIsDeviceIpForSubnet(String ipForCheck, SubnetUtils subnet) {
+  public void isItDeviceIpForSubnet(String ipForCheck, SubnetUtils subnet) {
     String deviceIpForSubnet = subnet.getInfo().getLowAddress();
     if (!deviceIpForSubnet.equals(ipForCheck)) {
       throw new IllegalArgumentException();

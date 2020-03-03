@@ -7,26 +7,28 @@ import org.apache.commons.net.util.SubnetUtils;
  */
 public interface SubnetService {
 
-//  String convertIpFromInt(int netValue);
+  /**
+   * Получить ip для следующего устройства в глобальной сети
+   *
+   * @param previousSubnet    предыдущая подсеть
+   * @param globalNetworkMask маска глобальной сети (в формате XXX.XXX.XXX.XXX/XX)
+   */
+  String getNextDeviceIp(SubnetUtils previousSubnet, String globalNetworkMask);
 
-//  int convertIntFromIp(String address);
+  /**
+   * Создать подсеть для ip устройства и маски подсети
+   *
+   * @param deviceIp  ip устройства
+   * @param rangeMask маска подсети
+   */
+  SubnetUtils createRangeSubnetForIp(String deviceIp, String rangeMask);
 
-//  String getNextIpAddress(String previousIpAddress);
+  /**
+   * Проверить ip устройства в глобальной сети
+   *
+   * @param deviceIp          ip устройства
+   * @param globalNetworkMask маска глобальной сети (в формате XXX.XXX.XXX.XXX/XX)
+   */
+  void checkDeviceIp(String deviceIp, String globalNetworkMask);
 
-
-//  SubnetUtils getNextSubnet(SubnetUtils previousSubnet);
-
-//  String getNextIp(SubnetUtils previousSubnet, SubnetUtils.SubnetInfo globalSubnetInfo);
-
-  void checkDeviceIp(String deviceIp);
-
-  String getNextDeviceIp(SubnetUtils previousSubnet);
-
-  SubnetUtils createRangeSubnetForIp(String ip);
-
-//  void validateAndCheckIpForSubnet(String ip, SubnetUtils.SubnetInfo subnetInfo);
-//
-//  void containsIpInSubnet(String ip, SubnetUtils.SubnetInfo subnet);
-//
-//  void checkDeviceIpForSubnet(String deviceIp, SubnetUtils subnet);
 }

@@ -24,8 +24,6 @@ class SubnetValidateServiceTest {
     assertThrows(Exception.class, () -> subnetValidateService.validateIpFormat(ipAddress));
   }
 
-  ;
-
   @ParameterizedTest
   @MethodSource("correctIpDataProvider")
   @DisplayName("SubnetValidateService.validateIpFormat(...): тест с корректными параметрами")
@@ -33,38 +31,32 @@ class SubnetValidateServiceTest {
     assertDoesNotThrow(() -> subnetValidateService.validateIpFormat(ipAddress));
   }
 
-  ;
-
   @ParameterizedTest
   @MethodSource("wrongIpInGlobalRangeDataProvider")
   @DisplayName("SubnetValidateService.containsIpInGlobalRange(...): тест с НЕвалидными параметрами")
   void containsIpInGlobalRangeWrong(String ip, String globalSubnet) {
-    assertThrows(Exception.class, () -> subnetValidateService.containsIpInGlobalRange(ip, globalSubnet));
+    assertThrows(Exception.class, () -> subnetValidateService.containsIpInGlobalNetwork(ip, globalSubnet));
   }
-
-  ;
 
   @ParameterizedTest
   @MethodSource("correctIpInGlobalRangeDataProvider")
   @DisplayName("SubnetValidateService.containsIpInGlobalRange(...): тест с корректными параметрами")
   void containsIpInGlobalRangeCorrect(String ip, String globalSubnet) {
-    assertDoesNotThrow(() -> subnetValidateService.containsIpInGlobalRange(ip, globalSubnet));
+    assertDoesNotThrow(() -> subnetValidateService.containsIpInGlobalNetwork(ip, globalSubnet));
   }
-
-  ;
 
   @ParameterizedTest
   @MethodSource("wrongDeviceIpForSubnetDataProvider")
   @DisplayName("SubnetValidateService.itIsDeviceIpForSubnet(...): тест с НЕвалидными параметрами")
   void itIsDeviceIpForSubnetWrong(String ipForCheck, SubnetUtils subnet) {
-    assertThrows(Exception.class, () -> subnetValidateService.itIsDeviceIpForSubnet(ipForCheck, subnet));
+    assertThrows(Exception.class, () -> subnetValidateService.isItDeviceIpForSubnet(ipForCheck, subnet));
   }
 
   @ParameterizedTest
   @MethodSource("correctDeviceIpForSubnetDataProvider")
   @DisplayName("SubnetValidateService.itIsDeviceIpForSubnet(...): тест с корректными параметрами")
   void itIsDeviceIpForSubnetCorrect(String ipForCheck, SubnetUtils subnet) {
-    assertDoesNotThrow(() -> subnetValidateService.itIsDeviceIpForSubnet(ipForCheck, subnet));
+    assertDoesNotThrow(() -> subnetValidateService.isItDeviceIpForSubnet(ipForCheck, subnet));
   }
 
   private static Stream<Arguments> correctIpDataProvider() {
@@ -86,21 +78,21 @@ class SubnetValidateServiceTest {
 
   private static Stream<Arguments> wrongIpInGlobalRangeDataProvider() {
     return Stream.of(
-            Arguments.of("172.255.255.255", businessConfiguration.getIpGlobalRange()),
-            Arguments.of("172.29.0.9", businessConfiguration.getIpGlobalRange()),
-            Arguments.of("172.255.255.255", businessConfiguration.getIpGlobalRange())
+            Arguments.of("172.255.255.255", businessConfiguration.getGlobalNetworkMask()),
+            Arguments.of("172.29.0.9", businessConfiguration.getGlobalNetworkMask()),
+            Arguments.of("172.255.255.255", businessConfiguration.getGlobalNetworkMask())
     );
   }
 
   private static Stream<Arguments> correctIpInGlobalRangeDataProvider() {
     return Stream.of(
-            Arguments.of("172.28.0.9", businessConfiguration.getIpGlobalRange()),
-            Arguments.of("172.28.0.5", businessConfiguration.getIpGlobalRange())
+            Arguments.of("172.28.0.9", businessConfiguration.getGlobalNetworkMask()),
+            Arguments.of("172.28.0.5", businessConfiguration.getGlobalNetworkMask())
     );
   }
 
   private static Stream<Arguments> wrongDeviceIpForSubnetDataProvider() {
-    SubnetUtils subnetForBusinessConfig = new SubnetUtils(businessConfiguration.getIpGlobalRange());
+    SubnetUtils subnetForBusinessConfig = new SubnetUtils(businessConfiguration.getGlobalNetworkMask());
     return Stream.of(
             Arguments.of("172.28.255.253", subnetForBusinessConfig),
             Arguments.of("0.0.0.0", subnetForBusinessConfig)
@@ -108,10 +100,9 @@ class SubnetValidateServiceTest {
   }
 
   private static Stream<Arguments> correctDeviceIpForSubnetDataProvider() {
-//    SubnetUtils subnetForBusinessConfig = new SubnetUtils(businessConfiguration.getIpGlobalRange());
     return Stream.of(
-            Arguments.of("172.28.0.1", new SubnetUtils("172.28.0.1" + businessConfiguration.getIpPickRangeValue())),
-            Arguments.of("172.28.0.5", new SubnetUtils("172.28.0.5" + businessConfiguration.getIpPickRangeValue()))
+            Arguments.of("172.28.0.1", new SubnetUtils("172.28.0.1" + businessConfiguration.getDeviceIpRangeMask())),
+            Arguments.of("172.28.0.5", new SubnetUtils("172.28.0.5" + businessConfiguration.getDeviceIpRangeMask()))
     );
   }
 

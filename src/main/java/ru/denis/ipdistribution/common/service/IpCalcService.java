@@ -1,14 +1,9 @@
 package ru.denis.ipdistribution.common.service;
 
 /**
- * Сервис для работы с масками IP
+ * Сервис для вычислительных операций с IP
  */
-public interface IpMaskService {
-
-  /**
-   * Получить маску сети из ip адреса
-   */
-  String getNetworkMaskFromIp(String ip);
+public interface IpCalcService {
 
   /**
    * Прибавить кол-в битов к IP

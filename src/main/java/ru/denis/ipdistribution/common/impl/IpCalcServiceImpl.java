@@ -1,13 +1,13 @@
 package ru.denis.ipdistribution.common.impl;
 
 import org.springframework.stereotype.Service;
-import ru.denis.ipdistribution.common.service.IpMaskService;
+import ru.denis.ipdistribution.common.service.IpCalcService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class IpMaskServiceImpl implements IpMaskService {
+public class IpCalcServiceImpl implements IpCalcService {
 
   private static final String IP_ADDRESS = "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})";
   private static final Pattern addressPattern = Pattern.compile(IP_ADDRESS);
@@ -18,15 +18,6 @@ public class IpMaskServiceImpl implements IpMaskService {
       ret[j] |= ((val >>> 8 * (3 - j)) & (0xff));
     }
     return ret;
-  }
-
-  private int pop(int x) {
-    x = x - ((x >>> 1) & 0x55555555);
-    x = (x & 0x33333333) + ((x >>> 2) & 0x33333333);
-    x = (x + (x >>> 4)) & 0x0F0F0F0F;
-    x = x + (x >>> 8);
-    x = x + (x >>> 16);
-    return x & 0x0000003F;
   }
 
   private int rangeCheck(int value) {
@@ -57,11 +48,6 @@ public class IpMaskServiceImpl implements IpMaskService {
       addr |= ((n & 0xff) << 8 * (4 - i));
     }
     return addr;
-  }
-
-  @Override
-  public String getNetworkMaskFromIp(String ip) {
-    return "/" + pop(convertIntFromIp(ip));
   }
 
   @Override

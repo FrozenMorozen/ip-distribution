@@ -6,8 +6,8 @@ package ru.denis.ipdistribution.service;
 public interface DeviceIpService {
 
   /**
-   * Получить ip адрес для следующего устройства
-   * @param previousDeviceIp ip адрес предыдущего устройства
+   * Получить ip адрес для следущего устройства
+   * @param inputIp ip адрес предыдущего устройства
    */
-  String getIpForNextDevice(String previousDeviceIp);
+  String getIpForNextDevice(String inputIp);
 }

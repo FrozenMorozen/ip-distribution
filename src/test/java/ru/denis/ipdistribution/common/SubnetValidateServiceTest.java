@@ -12,11 +12,13 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static ru.denis.ipdistribution.TestDataProvider.GLOBAL_NETWORK_MASK;
 import static ru.denis.ipdistribution.TestDataProvider.businessConfiguration;
 
 class SubnetValidateServiceTest {
 
   private static SubnetValidateService subnetValidateService = new SubnetValidateServiceImpl();
+  private static SubnetUtils globalSubnet = new SubnetUtils(GLOBAL_NETWORK_MASK);
 
   @ParameterizedTest
   @MethodSource("wrongIpDataProvider")
@@ -34,16 +36,16 @@ class SubnetValidateServiceTest {
 
   @ParameterizedTest
   @MethodSource("wrongIpInGlobalRangeDataProvider")
-  @DisplayName("SubnetValidateService.containsIpInGlobalRange(...): тест с НЕвалидными параметрами")
-  void containsIpInGlobalRangeWrong(String ip, String globalSubnet) {
-    assertThrows(Exception.class, () -> subnetValidateService.containsIpInGlobalNetwork(ip, globalSubnet));
+  @DisplayName("SubnetValidateService.containsIpInNetwork(...): тест с НЕвалидными параметрами")
+  void containsIpInGlobalRangeWrong(String ip, SubnetUtils network) {
+    assertThrows(Exception.class, () -> subnetValidateService.containsIpInNetwork(ip, globalSubnet));
   }
 
   @ParameterizedTest
   @MethodSource("correctIpInGlobalRangeDataProvider")
-  @DisplayName("SubnetValidateService.containsIpInGlobalRange(...): тест с корректными параметрами")
-  void containsIpInGlobalRangeCorrect(String ip, String globalSubnet) {
-    assertDoesNotThrow(() -> subnetValidateService.containsIpInGlobalNetwork(ip, globalSubnet));
+  @DisplayName("SubnetValidateService.containsIpInNetwork(...): тест с корректными параметрами")
+  void containsIpInGlobalRangeCorrect(String ip, SubnetUtils network) {
+    assertDoesNotThrow(() -> subnetValidateService.containsIpInNetwork(ip, network));
   }
 
   @ParameterizedTest
@@ -79,16 +81,16 @@ class SubnetValidateServiceTest {
 
   private static Stream<Arguments> wrongIpInGlobalRangeDataProvider() {
     return Stream.of(
-            Arguments.of("172.255.255.255", businessConfiguration.getGlobalNetworkMask()),
-            Arguments.of("172.29.0.9", businessConfiguration.getGlobalNetworkMask()),
-            Arguments.of("172.255.255.255", businessConfiguration.getGlobalNetworkMask())
+            Arguments.of("172.255.255.255", globalSubnet),
+            Arguments.of("172.29.0.9", globalSubnet),
+            Arguments.of("172.255.255.255", globalSubnet)
     );
   }
 
   private static Stream<Arguments> correctIpInGlobalRangeDataProvider() {
     return Stream.of(
-            Arguments.of("172.28.0.9", businessConfiguration.getGlobalNetworkMask()),
-            Arguments.of("172.28.0.5", businessConfiguration.getGlobalNetworkMask())
+            Arguments.of("172.28.0.9", globalSubnet),
+            Arguments.of("172.28.0.5", globalSubnet)
     );
   }
 

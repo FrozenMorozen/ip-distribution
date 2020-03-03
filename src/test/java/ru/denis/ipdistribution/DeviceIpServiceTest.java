@@ -4,8 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.denis.ipdistribution.common.impl.IpMaskServiceImpl;
-import ru.denis.ipdistribution.common.impl.SubnetCalculatorServiceImpl;
+import ru.denis.ipdistribution.common.impl.SubnetValidateServiceImpl;
 import ru.denis.ipdistribution.service.DeviceIpService;
 import ru.denis.ipdistribution.service.Impl.DeviceIpServiceImpl;
 
@@ -18,8 +17,8 @@ import static ru.denis.ipdistribution.TestDataProvider.subnetService;
 
 class DeviceIpServiceTest {
 
-  private static DeviceIpService deviceIpService = new DeviceIpServiceImpl(subnetService, businessConfiguration,
-          new SubnetCalculatorServiceImpl(new IpMaskServiceImpl()));
+  private static DeviceIpService deviceIpService =
+          new DeviceIpServiceImpl(subnetService, businessConfiguration, new SubnetValidateServiceImpl());
 
   @ParameterizedTest
   @MethodSource("correctIpsDataProvider")

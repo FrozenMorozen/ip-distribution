@@ -3,8 +3,8 @@ package ru.denis.ipdistribution.service.Impl;
 import org.apache.commons.net.util.SubnetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.denis.ipdistribution.common.service.SubnetCalculatorService;
 import ru.denis.ipdistribution.common.service.SubnetService;
+import ru.denis.ipdistribution.common.service.SubnetValidateService;
 import ru.denis.ipdistribution.configuration.BusinessConfiguration;
 import ru.denis.ipdistribution.service.DeviceIpService;
 
@@ -13,29 +13,40 @@ public class DeviceIpServiceImpl implements DeviceIpService {
 
   private SubnetService subnetService;
   private BusinessConfiguration businessConfiguration;
-  private SubnetCalculatorService subnetCalculatorService;
+  private SubnetValidateService subnetValidateService;
+  private SubnetUtils globalNetwork;
 
   @Autowired
-  public DeviceIpServiceImpl(SubnetService subnetService, BusinessConfiguration businessConfiguration, SubnetCalculatorService subnetCalculatorService) {
+  public DeviceIpServiceImpl(SubnetService subnetService, BusinessConfiguration businessConfiguration, SubnetValidateService subnetValidateService) {
     this.subnetService = subnetService;
     this.businessConfiguration = businessConfiguration;
-    this.subnetCalculatorService = subnetCalculatorService;
+    this.subnetValidateService = subnetValidateService;
+
+    globalNetwork = new SubnetUtils(businessConfiguration.getGlobalNetworkMask());
+    globalNetwork.setInclusiveHostCount(true);
   }
 
   @Override
-  public String getIpForNextDevice(String previousDeviceIp) {
+  public String getIpForNextDevice(String inputIp) {
 
-    // Проверить ip предыдущего устройства
-    subnetService.checkDeviceIp(previousDeviceIp, businessConfiguration.getGlobalNetworkMask());
+    // Проверить входящий ip
+    subnetValidateService.validateIpFormat(inputIp);
+    subnetValidateService.containsIpInNetwork(inputIp, globalNetwork);
 
-    // Подсеть для входящего ip устройства
-    SubnetUtils previousSubnet = subnetService.getSubnetForDeviceIp(previousDeviceIp, businessConfiguration.getDeviceIpRangeMask());
+    // Подсеть для входящего ip
+    SubnetUtils previousSubnet = new SubnetUtils(inputIp + businessConfiguration.getDeviceIpRangeMask());;
 
-    // Следущая подсеть
-    SubnetUtils nextSubnet = subnetCalculatorService.getNextSubnetForPrevious(previousSubnet);
+    // Является ли входящий ip первым хостом(ip устройства) в своей подсети
+    subnetValidateService.isItDeviceIpForSubnet(inputIp, previousSubnet);
 
-    // ip устройства
-    return subnetService.getDeviceIp(nextSubnet, businessConfiguration.getGlobalNetworkMask());
+    // ip устройства в следующей подсети (ip первого хоста в подсети)
+    String nextDeviceIp = subnetService.getNextSubnet(previousSubnet, businessConfiguration.getDeviceIpRangeMask())
+            .getInfo().getLowAddress();
+
+    // Проверить, принадлжеит ли ip устройства глобальной подсети
+    subnetValidateService.containsIpInNetwork(nextDeviceIp, globalNetwork);
+
+    return nextDeviceIp;
   }
 
 }

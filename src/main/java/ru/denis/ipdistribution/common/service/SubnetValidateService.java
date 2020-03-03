@@ -13,12 +13,12 @@ public interface SubnetValidateService {
   void validateIpFormat(String ipAddress);
 
   /**
-   * Принадлежит ли ip глобальной сети
+   * Принадлежит ли ip сети
    *
-   * @param ip            ip для проверки
-   * @param globalNetwork глобальная сеть (в формате XXX.XXX.XXX.XXX/XX)
+   * @param ip      ip для проверки
+   * @param network сеть
    */
-  void containsIpInGlobalNetwork(String ip, String globalNetwork);
+  void containsIpInNetwork(String ip, SubnetUtils network);
 
   /**
    * Является ли ip - ip устройства в подсети
@@ -27,4 +27,5 @@ public interface SubnetValidateService {
    * @param subnet     подсеть для получения актуального ip устройства в ней
    */
   void isItDeviceIpForSubnet(String ipForCheck, SubnetUtils subnet);
+
 }

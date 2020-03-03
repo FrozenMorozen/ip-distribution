@@ -4,59 +4,30 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.denis.ipdistribution.common.impl.IpMaskServiceImpl;
-import ru.denis.ipdistribution.common.service.IpMaskService;
+import ru.denis.ipdistribution.common.impl.IpCalcServiceImpl;
+import ru.denis.ipdistribution.common.service.IpCalcService;
 
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class IpMaskServiceTest {
+class IpCalcServiceTest {
 
-  private IpMaskService ipMaskService = new IpMaskServiceImpl();
-
-  @ParameterizedTest
-  @MethodSource("wrongIpDataProvider")
-  @DisplayName("IpMaskService.getNetworkMaskFromIp(...): тест с НЕвалидными параметрами")
-  void getNetworkMaskFromWrongIp(String ip) {
-    assertThrows(Exception.class, () -> ipMaskService.getNetworkMaskFromIp(ip));
-  }
-
-  @ParameterizedTest
-  @MethodSource("correctIpDataProvider")
-  @DisplayName("IpMaskService.getNetworkMaskFromIp(...): тест с корректнми параметрами")
-  void getNetworkMaskFromCorrectIp(String ip, String expected) {
-    assertEquals(ipMaskService.getNetworkMaskFromIp(ip), expected);
-  }
+  private IpCalcService ipCalcService = new IpCalcServiceImpl();
 
   @ParameterizedTest
   @MethodSource("wrongIpWithAddBitsDataProvider")
   @DisplayName("IpMaskService.addBitsToIp(...): тест с НЕвалидными параметрами")
   void addBitsToWrongIp(String ip, int bitForAdd) {
-    assertThrows(Exception.class, () -> ipMaskService.addBitsToIp(ip, bitForAdd));
+    assertThrows(Exception.class, () -> ipCalcService.addBitsToIp(ip, bitForAdd));
   }
 
   @ParameterizedTest
   @MethodSource("correctIpWithAddBitsDataProvider")
   @DisplayName("IpMaskService.addBitsToIp(...): тест с корректными параметрами")
   void addBitsToCorrectIp(String ip, int bitForAdd, String expected) {
-    assertEquals(ipMaskService.addBitsToIp(ip, bitForAdd), expected);
-  }
-
-  private static Stream<Arguments> wrongIpDataProvider() {
-    return Stream.of(
-            Arguments.of("smth string"),
-            Arguments.of("172.28."),
-            Arguments.of("172.28.0.5.7")
-    );
-  }
-
-  private static Stream<Arguments> correctIpDataProvider() {
-    return Stream.of(
-            Arguments.of("255.255.255.252", "/30"),
-            Arguments.of("255.255.0.0", "/16")
-    );
+    assertEquals(ipCalcService.addBitsToIp(ip, bitForAdd), expected);
   }
 
   private static Stream<Arguments> wrongIpWithAddBitsDataProvider() {

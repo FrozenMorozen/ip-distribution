@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 public class BusinessConfiguration {
 
-  @Value("${ip.range}")
-  private String ipRange;
+  @Value("${ip.global.range}")
+  private String ipGlobalRange;
 
   @Value("${ip.pick.range.value}")
   private String ipPickRangeValue;

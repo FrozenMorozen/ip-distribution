@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.denis.ipdistribution.exception.OutOfIpRangeException;
+import ru.denis.ipdistribution.exception.controller.InvalidIpException;
+import ru.denis.ipdistribution.exception.controller.NotFoundException;
+import ru.denis.ipdistribution.exception.service.OutOfIpRangeException;
 import ru.denis.ipdistribution.service.IpForDeviceService;
 
 @RestController
@@ -24,18 +26,18 @@ public class Controller {
   @GetMapping("/{ip}")
   public String getNextIpForPrevious(@PathVariable("ip") String ip) {
     try {
-      return ipForDeviceService.getIpForNextDevice(ip);
+      String ipForNextDevice = ipForDeviceService.getIpForNextDevice(ip);
+      log.info(String.format("IP для следующего утройства = %s", ipForNextDevice));
+      return ipForNextDevice;
+
     } catch (IllegalArgumentException ex) {
-      log.error(String.format("Передан некорректный параметр \"%s\"", ip));
-      return null;
+      log.error(ex.getMessage());
+      throw new InvalidIpException(ex.getMessage());
+
     } catch (OutOfIpRangeException ex) {
-      // Обработать, что данных не найдено
-      return null;
+      log.error(ex.getMessage());
+      throw new NotFoundException(ex.getMessage());
     }
   }
-
-  //POST
-  //DELET
-  //PUT
 
 }

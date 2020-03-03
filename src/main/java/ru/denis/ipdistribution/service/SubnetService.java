@@ -1,5 +1,7 @@
 package ru.denis.ipdistribution.service;
 
+import org.apache.commons.net.util.SubnetUtils;
+
 /**
  *
  */
@@ -10,6 +12,9 @@ public interface SubnetService {
   int convertIntFromIp(String address);
 
   String getNextIpAddress(String previousIpAddress);
+
+
+  SubnetUtils getNextSubnet(SubnetUtils previousSubnet);
 
   void validateIp(String ip);
 }

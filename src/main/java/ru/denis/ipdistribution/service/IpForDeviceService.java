@@ -7,7 +7,6 @@ public interface IpForDeviceService {
 
   /**
    * Получить ip адрес для следующего устройства
-   *
    * @param previousDeviceIp ip адрес предыдущего устройства
    */
   String getIpForNextDevice(String previousDeviceIp);

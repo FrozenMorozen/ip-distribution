@@ -1,29 +1,20 @@
 package ru.denis.ipdistribution.service.impl;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.denis.ipdistribution.configuration.BusinessConfiguration;
 import ru.denis.ipdistribution.service.IpForDeviceService;
 
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static ru.denis.ipdistribution.TestDataProvider.subnetService;
 
 class IpForDeviceServiceImplTest {
 
-  private static IpForDeviceService ipForDeviceService;
-
-  @BeforeAll
-  static void setUp() {
-    BusinessConfiguration businessConfiguration = new BusinessConfiguration();
-    businessConfiguration.setIpGlobalRange("172.28.0.0/16");
-    businessConfiguration.setIpPickRangeValue("/30");
-    ipForDeviceService = new IpForDeviceServiceImpl(new SubnetServiceImpl(), businessConfiguration);
-  }
+  private static IpForDeviceService ipForDeviceService = new IpForDeviceServiceImpl(subnetService);
 
   @ParameterizedTest
   @MethodSource("correctIpsDataProvider")
@@ -50,10 +41,11 @@ class IpForDeviceServiceImplTest {
     return Stream.of(
             Arguments.of((Object) null),
             Arguments.of("smth string"),
-            Arguments.of("0.0.0.0"),
             Arguments.of("172.28."),
             Arguments.of("172.28.0.5.7"),
-            Arguments.of("172.28.255.253")  // последнее значение устройства из диапазона
+            Arguments.of("0.0.0.0"),
+            Arguments.of("172.28.255.253"),  // последнее значение устройства из диапазона
+            Arguments.of("172.28.255.254")
     );
   }
 }

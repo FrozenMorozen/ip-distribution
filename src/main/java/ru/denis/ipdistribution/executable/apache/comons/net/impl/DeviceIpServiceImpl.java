@@ -17,19 +17,6 @@ public class DeviceIpServiceImpl implements DeviceIpService {
   }
 
   @Override
-  public SubnetUtils getNextSubnet(SubnetUtils previousSubnet, String rangeMask) {
-    String nextNetworkIp = ipCalcService.addBitsToIp(previousSubnet.getInfo().getBroadcastAddress(),1);
-    return new SubnetUtils(nextNetworkIp + rangeMask);
-  }
-
-  @Override
-  public SubnetUtils getNextSubnet(String previousIp, String rangeMask) {
-    SubnetUtils previousSubnet = new SubnetUtils(previousIp + rangeMask);
-    String nextNetworkIp = ipCalcService.addBitsToIp(previousSubnet.getInfo().getBroadcastAddress(),1);
-    return new SubnetUtils(nextNetworkIp + rangeMask);
-  }
-
-  @Override
   public String getNextDeviceIp(String previousDeviceIp, String rangeMask) {
     SubnetUtils previousSubnet = new SubnetUtils(previousDeviceIp + rangeMask);
     String nextNetworkIp = ipCalcService.addBitsToIp(previousSubnet.getInfo().getBroadcastAddress(),1);

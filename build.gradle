@@ -27,7 +27,6 @@ dependencies {
 	}
 	compile group: 'commons-net', name: 'commons-net', version: '3.6'
 	implementation 'com.github.seancfoley:ipaddress:5.2.1'
-    implementation 'junit:junit:4.12'
 }
 
 test {

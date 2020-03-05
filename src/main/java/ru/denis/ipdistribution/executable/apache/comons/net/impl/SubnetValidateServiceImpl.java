@@ -1,14 +1,12 @@
 package ru.denis.ipdistribution.executable.apache.comons.net.impl;
 
 import org.apache.commons.net.util.SubnetUtils;
-import org.springframework.stereotype.Service;
 import ru.denis.ipdistribution.executable.common.exception.OutOfIpRangeException;
 import ru.denis.ipdistribution.executable.common.service.SubnetValidateService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Service
 public class SubnetValidateServiceImpl implements SubnetValidateService {
 
   private static final String IP_ADDRESS = "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})";
@@ -19,8 +17,7 @@ public class SubnetValidateServiceImpl implements SubnetValidateService {
     SubnetUtils network = new SubnetUtils(networkString);
     network.setInclusiveHostCount(true);
     if (!network.getInfo().isInRange(ip)) {
-      throw new OutOfIpRangeException(String.format("IP: '%s' не входит в сеть '%s'",
-              ip, network.getInfo().getCidrSignature()));
+      throw new OutOfIpRangeException(String.format("IP: '%s' не входит в сеть '%s'", ip, networkString));
     }
   }
 

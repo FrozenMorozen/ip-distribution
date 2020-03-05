@@ -4,13 +4,12 @@ import inet.ipaddr.IPAddress;
 import inet.ipaddr.IPAddressString;
 import inet.ipaddr.ipv4.IPv4Address;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import ru.denis.ipdistribution.business.configuration.BusinessConfiguration;
 import ru.denis.ipdistribution.business.service.BusinessDeviceIpService;
 
 import java.util.stream.Collectors;
 
-@Service
+
 public class DeviceServiceWithIpAddressLibImpl implements BusinessDeviceIpService {
 
   private BusinessConfiguration configuration;
@@ -22,7 +21,6 @@ public class DeviceServiceWithIpAddressLibImpl implements BusinessDeviceIpServic
 
   @Override
   public String getIpForNextDevice(String inputIp) {
-    int prefixLength = Integer.parseInt(configuration.getDeviceIpRangeMask().substring(1));
     IPAddress globalSubnet = new IPAddressString(configuration.getGlobalNetworkMask()).getAddress().toPrefixBlock();
     IPv4Address inputAddress = new IPAddressString(inputIp).getAddress().toIPv4();
     if (!globalSubnet.contains(inputAddress)) {

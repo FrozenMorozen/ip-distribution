@@ -37,7 +37,7 @@ public class SubnetValidateServiceImpl implements SubnetValidateService {
 
   @Override
   public void validateIpFormat(String ipAddress) {
-    // Пока не разбирался с системой валидации чистого IP в либе IPAddress
+    // Пока не разбирался с валидацией чистого IP в либе IPAddress
     return;
   }
 }

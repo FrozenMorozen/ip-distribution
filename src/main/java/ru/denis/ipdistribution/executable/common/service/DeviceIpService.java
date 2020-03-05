@@ -1,18 +1,9 @@
 package ru.denis.ipdistribution.executable.common.service;
 
-import org.apache.commons.net.util.SubnetUtils;
-
 /**
  * Сервис для управления IP адресами устройств
  */
 public interface DeviceIpService {
-
-  /**
-   * Получить следущую подсеть
-   * @param previousSubnet  предыдущая подсеть
-   */
-  SubnetUtils getNextSubnet(SubnetUtils previousSubnet, String rangeMask);
-  SubnetUtils getNextSubnet(String previousIp, String rangeMask);
 
   /**
    * Получить IP следующего устройства, имея IP предыдущего

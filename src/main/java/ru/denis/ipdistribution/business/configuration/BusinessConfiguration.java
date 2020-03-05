@@ -1,4 +1,4 @@
-package ru.denis.ipdistribution.configuration;
+package ru.denis.ipdistribution.business.configuration;
 
 import lombok.Getter;
 import lombok.Setter;

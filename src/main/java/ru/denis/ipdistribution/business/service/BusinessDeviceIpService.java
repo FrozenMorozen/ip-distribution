@@ -1,9 +1,9 @@
-package ru.denis.ipdistribution.service;
+package ru.denis.ipdistribution.business.service;
 
 /**
- * Сервис для предоставления ip адресов устройствам
+ * Сервис для бизнесовой логики с ip адресами устройств
  */
-public interface DeviceIpService {
+public interface BusinessDeviceIpService {
 
   /**
    * Получить ip адрес для следущего устройства

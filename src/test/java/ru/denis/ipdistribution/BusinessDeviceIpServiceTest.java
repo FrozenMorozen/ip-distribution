@@ -4,34 +4,34 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.denis.ipdistribution.common.impl.SubnetValidateServiceImpl;
-import ru.denis.ipdistribution.service.DeviceIpService;
-import ru.denis.ipdistribution.service.Impl.DeviceIpServiceImpl;
+import ru.denis.ipdistribution.business.service.BusinessDeviceIpService;
+import ru.denis.ipdistribution.business.service.Impl.BusinessDeviceIpServiceImpl;
+import ru.denis.ipdistribution.executable.apache.comons.net.impl.SubnetValidateServiceImpl;
 
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.denis.ipdistribution.TestDataProvider.businessConfiguration;
-import static ru.denis.ipdistribution.TestDataProvider.subnetService;
+import static ru.denis.ipdistribution.TestDataProvider.deviceIpService;
 
-class DeviceIpServiceTest {
+class BusinessDeviceIpServiceTest {
 
-  private static DeviceIpService deviceIpService =
-          new DeviceIpServiceImpl(subnetService, businessConfiguration, new SubnetValidateServiceImpl());
+  private static BusinessDeviceIpService businessDeviceIpService =
+          new BusinessDeviceIpServiceImpl(deviceIpService, businessConfiguration, new SubnetValidateServiceImpl());
 
   @ParameterizedTest
   @MethodSource("correctIpsDataProvider")
   @DisplayName("IpForDeviceService.getIpForNextDevice(...) : тест с валидными параметрами")
   void getIpForNextDevice(String inputIp, String expectedResult) {
-    assertEquals(deviceIpService.getIpForNextDevice(inputIp), expectedResult);
+    assertEquals(businessDeviceIpService.getIpForNextDevice(inputIp), expectedResult);
   }
 
   @ParameterizedTest
   @MethodSource("wrongIpsDataProvider")
   @DisplayName("IpForDeviceService.getIpForNextDevice(...) : тест с НЕвалидными параметрами")
   void getIpForNextDevice(String inputIp) {
-    assertThrows(Exception.class, () -> deviceIpService.getIpForNextDevice(inputIp));
+    assertThrows(Exception.class, () -> businessDeviceIpService.getIpForNextDevice(inputIp));
   }
 
   private static Stream<Arguments> correctIpsDataProvider() {

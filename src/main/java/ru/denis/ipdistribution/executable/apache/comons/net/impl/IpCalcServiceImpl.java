@@ -1,7 +1,7 @@
-package ru.denis.ipdistribution.common.impl;
+package ru.denis.ipdistribution.executable.apache.comons.net.impl;
 
 import org.springframework.stereotype.Service;
-import ru.denis.ipdistribution.common.service.IpCalcService;
+import ru.denis.ipdistribution.executable.apache.comons.net.service.IpCalcService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

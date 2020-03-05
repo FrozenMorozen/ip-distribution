@@ -1,9 +1,9 @@
-package ru.denis.ipdistribution.common.impl;
+package ru.denis.ipdistribution.executable.apache.comons.net.impl;
 
 import org.apache.commons.net.util.SubnetUtils;
 import org.springframework.stereotype.Service;
-import ru.denis.ipdistribution.common.exception.OutOfIpRangeException;
-import ru.denis.ipdistribution.common.service.SubnetValidateService;
+import ru.denis.ipdistribution.executable.common.exception.OutOfIpRangeException;
+import ru.denis.ipdistribution.executable.common.service.SubnetValidateService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +15,9 @@ public class SubnetValidateServiceImpl implements SubnetValidateService {
   private static final Pattern addressPattern = Pattern.compile(IP_ADDRESS);
 
   @Override
-  public void containsIpInNetwork(String ip, SubnetUtils network) {
+  public void containsIpInNetwork(String ip, String networkString) {
+    SubnetUtils network = new SubnetUtils(networkString);
+    network.setInclusiveHostCount(true);
     if (!network.getInfo().isInRange(ip)) {
       throw new OutOfIpRangeException(String.format("IP: '%s' не входит в сеть '%s'",
               ip, network.getInfo().getCidrSignature()));
@@ -23,7 +25,8 @@ public class SubnetValidateServiceImpl implements SubnetValidateService {
   }
 
   @Override
-  public void isItDeviceIpForSubnet(String ipForCheck, SubnetUtils subnet) {
+  public void isItDeviceIpForSubnet(String ipForCheck, String subnetString) {
+    SubnetUtils subnet = new SubnetUtils(subnetString);
     String deviceIpForSubnet = subnet.getInfo().getLowAddress();
     if (!deviceIpForSubnet.equals(ipForCheck)) {
       throw new IllegalArgumentException(

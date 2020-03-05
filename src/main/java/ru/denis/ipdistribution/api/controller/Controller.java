@@ -1,4 +1,4 @@
-package ru.denis.ipdistribution.controller;
+package ru.denis.ipdistribution.api.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,27 +6,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.denis.ipdistribution.common.exception.OutOfIpRangeException;
-import ru.denis.ipdistribution.controller.exception.InvalidIpException;
-import ru.denis.ipdistribution.controller.exception.NotFoundException;
-import ru.denis.ipdistribution.service.DeviceIpService;
+import ru.denis.ipdistribution.api.exception.InvalidIpException;
+import ru.denis.ipdistribution.api.exception.NotFoundException;
+import ru.denis.ipdistribution.business.service.BusinessDeviceIpService;
+import ru.denis.ipdistribution.executable.common.exception.OutOfIpRangeException;
 
 @RestController
 @RequestMapping("getnextip")
 @Slf4j
 public class Controller {
 
-  private DeviceIpService deviceIpService;
+  private BusinessDeviceIpService businessDeviceIpService;
 
   @Autowired
-  public Controller(DeviceIpService deviceIpService) {
-    this.deviceIpService = deviceIpService;
+  public Controller(BusinessDeviceIpService businessDeviceIpService) {
+    this.businessDeviceIpService = businessDeviceIpService;
   }
 
   @GetMapping("/{ip}")
   public String getNextIpForPrevious(@PathVariable("ip") String ip) {
     try {
-      String ipForNextDevice = deviceIpService.getIpForNextDevice(ip);
+      String ipForNextDevice = businessDeviceIpService.getIpForNextDevice(ip);
       log.info(String.format("IP для следущего утройства = %s", ipForNextDevice));
       return ipForNextDevice + "\n";
 

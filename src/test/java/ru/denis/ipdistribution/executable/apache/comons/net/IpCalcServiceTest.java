@@ -1,11 +1,11 @@
-package ru.denis.ipdistribution.common;
+package ru.denis.ipdistribution.executable.apache.comons.net;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.denis.ipdistribution.common.impl.IpCalcServiceImpl;
-import ru.denis.ipdistribution.common.service.IpCalcService;
+import ru.denis.ipdistribution.executable.apache.comons.net.impl.IpCalcServiceImpl;
+import ru.denis.ipdistribution.executable.apache.comons.net.service.IpCalcService;
 
 import java.util.stream.Stream;
 

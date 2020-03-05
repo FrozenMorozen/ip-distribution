@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.denis.ipdistribution.business.configuration.BusinessConfiguration;
 import ru.denis.ipdistribution.business.service.BusinessDeviceIpService;
-import ru.denis.ipdistribution.executable.service.DeviceIpService;
-import ru.denis.ipdistribution.executable.service.SubnetValidateService;
+import ru.denis.ipdistribution.executable.common.service.DeviceIpService;
+import ru.denis.ipdistribution.executable.common.service.SubnetValidateService;
 
 @Service
 public class BusinessDeviceIpServiceImpl implements BusinessDeviceIpService {

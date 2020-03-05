@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.denis.ipdistribution.business.service.BusinessDeviceIpService;
 import ru.denis.ipdistribution.business.service.Impl.BusinessDeviceIpServiceImpl;
-import ru.denis.ipdistribution.executable.impl.apache.comons.net.SubnetValidateServiceImpl;
+import ru.denis.ipdistribution.executable.apache.comons.net.impl.SubnetValidateServiceImpl;
 
 import java.util.stream.Stream;
 

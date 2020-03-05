@@ -1,4 +1,4 @@
-package ru.denis.ipdistribution.executable.service.apache.commons.net;
+package ru.denis.ipdistribution.executable.apache.comons.net.service;
 
 /**
  * Сервис для вычислительных операций с IP

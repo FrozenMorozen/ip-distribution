@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.denis.ipdistribution.api.exception.InvalidIpException;
 import ru.denis.ipdistribution.api.exception.NotFoundException;
 import ru.denis.ipdistribution.business.service.BusinessDeviceIpService;
-import ru.denis.ipdistribution.executable.exception.OutOfIpRangeException;
+import ru.denis.ipdistribution.executable.common.exception.OutOfIpRangeException;
 
 @RestController
 @RequestMapping("getnextip")

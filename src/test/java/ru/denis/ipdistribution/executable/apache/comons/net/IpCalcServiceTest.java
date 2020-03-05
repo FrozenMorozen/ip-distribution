@@ -4,8 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.denis.ipdistribution.executable.impl.apache.comons.net.IpCalcServiceImpl;
-import ru.denis.ipdistribution.executable.service.apache.commons.net.IpCalcService;
+import ru.denis.ipdistribution.executable.apache.comons.net.impl.IpCalcServiceImpl;
+import ru.denis.ipdistribution.executable.apache.comons.net.service.IpCalcService;
 
 import java.util.stream.Stream;
 

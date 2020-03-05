@@ -5,8 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.denis.ipdistribution.executable.impl.apache.comons.net.SubnetValidateServiceImpl;
-import ru.denis.ipdistribution.executable.service.SubnetValidateService;
+import ru.denis.ipdistribution.executable.apache.comons.net.impl.SubnetValidateServiceImpl;
+import ru.denis.ipdistribution.executable.common.service.SubnetValidateService;
 
 import java.util.stream.Stream;
 

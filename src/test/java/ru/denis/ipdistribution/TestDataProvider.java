@@ -1,9 +1,9 @@
 package ru.denis.ipdistribution;
 
 import ru.denis.ipdistribution.business.configuration.BusinessConfiguration;
-import ru.denis.ipdistribution.executable.impl.apache.comons.net.DeviceIpServiceImpl;
-import ru.denis.ipdistribution.executable.impl.apache.comons.net.IpCalcServiceImpl;
-import ru.denis.ipdistribution.executable.service.DeviceIpService;
+import ru.denis.ipdistribution.executable.apache.comons.net.impl.DeviceIpServiceImpl;
+import ru.denis.ipdistribution.executable.apache.comons.net.impl.IpCalcServiceImpl;
+import ru.denis.ipdistribution.executable.common.service.DeviceIpService;
 
 public class TestDataProvider {
 

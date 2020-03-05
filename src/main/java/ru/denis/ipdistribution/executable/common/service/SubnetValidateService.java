@@ -1,4 +1,4 @@
-package ru.denis.ipdistribution.executable.service;
+package ru.denis.ipdistribution.executable.common.service;
 
 /**
  * Сервис валидации для работы с ip адресами в подсети

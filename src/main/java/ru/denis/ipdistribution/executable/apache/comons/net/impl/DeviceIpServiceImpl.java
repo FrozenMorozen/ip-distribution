@@ -1,10 +1,10 @@
-package ru.denis.ipdistribution.executable.impl.apache.comons.net;
+package ru.denis.ipdistribution.executable.apache.comons.net.impl;
 
 import org.apache.commons.net.util.SubnetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.denis.ipdistribution.executable.service.DeviceIpService;
-import ru.denis.ipdistribution.executable.service.apache.commons.net.IpCalcService;
+import ru.denis.ipdistribution.executable.apache.comons.net.service.IpCalcService;
+import ru.denis.ipdistribution.executable.common.service.DeviceIpService;
 
 @Service
 public class DeviceIpServiceImpl implements DeviceIpService {

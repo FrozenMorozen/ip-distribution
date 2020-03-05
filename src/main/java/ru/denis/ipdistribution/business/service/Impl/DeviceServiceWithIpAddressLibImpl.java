@@ -1,17 +1,17 @@
-package ru.denis.ipdistribution.service.Impl;
+package ru.denis.ipdistribution.business.service.Impl;
 
 import inet.ipaddr.IPAddress;
 import inet.ipaddr.IPAddressString;
 import inet.ipaddr.ipv4.IPv4Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.denis.ipdistribution.configuration.BusinessConfiguration;
-import ru.denis.ipdistribution.service.DeviceIpService;
+import ru.denis.ipdistribution.business.configuration.BusinessConfiguration;
+import ru.denis.ipdistribution.business.service.BusinessDeviceIpService;
 
 import java.util.stream.Collectors;
 
 @Service
-public class DeviceServiceWithIpAddressLibImpl implements DeviceIpService {
+public class DeviceServiceWithIpAddressLibImpl implements BusinessDeviceIpService {
 
   private BusinessConfiguration configuration;
 

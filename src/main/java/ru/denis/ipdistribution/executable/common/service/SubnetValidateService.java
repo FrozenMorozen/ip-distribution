@@ -21,9 +21,9 @@ public interface SubnetValidateService {
   /**
    * Является ли ip - ip устройства в подсети
    *
-   * @param ipForCheck    ip для проверки
-   * @param subnetString  строка вида: ip подсетисети/маска подсети
+   * @param ipForCheck  ip для проверки
+   * @param subnetMask  маска подсети
    */
-  void isItDeviceIpForSubnet(String ipForCheck, String subnetString);
+  void isItDeviceIpForSubnet(String ipForCheck, String subnetMask);
 
 }

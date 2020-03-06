@@ -1,6 +1,5 @@
 package ru.denis.ipdistribution.executable;
 
-import org.apache.commons.net.util.SubnetUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,7 +11,8 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static ru.denis.ipdistribution.TestDataProvider.*;
+import static ru.denis.ipdistribution.TestDataProvider.DEVICE_RANGE_MASK;
+import static ru.denis.ipdistribution.TestDataProvider.GLOBAL_NETWORK_STRING;
 
 class SubnetValidateServiceTest {
 
@@ -50,15 +50,15 @@ class SubnetValidateServiceTest {
   @ParameterizedTest
   @MethodSource("wrongDeviceIpForSubnetDataProvider")
   @DisplayName("SubnetValidateService.itIsDeviceIpForSubnet(...): тест с НЕвалидными параметрами")
-  void itIsDeviceIpForSubnetWrong(String ipForCheck, String wrongSubnetString) {
-    assertThrows(Exception.class, () -> subnetValidateService.isItDeviceIpForSubnet(ipForCheck, wrongSubnetString));
+  void itIsDeviceIpForSubnetWrong(String ipForCheck) {
+    assertThrows(Exception.class, () -> subnetValidateService.isItDeviceIpForSubnet(ipForCheck, DEVICE_RANGE_MASK));
   }
 
   @ParameterizedTest
   @MethodSource("correctDeviceIpForSubnetDataProvider")
   @DisplayName("SubnetValidateService.itIsDeviceIpForSubnet(...): тест с корректными параметрами")
   void itIsDeviceIpForSubnetCorrect(String ipForCheck) {
-    assertDoesNotThrow(() -> subnetValidateService.isItDeviceIpForSubnet(ipForCheck, ipForCheck + DEVICE_RANGE_MASK));
+    assertDoesNotThrow(() -> subnetValidateService.isItDeviceIpForSubnet(ipForCheck, DEVICE_RANGE_MASK));
   }
 
   private static Stream<Arguments> correctIpDataProvider() {
@@ -96,11 +96,10 @@ class SubnetValidateServiceTest {
   }
 
   private static Stream<Arguments> wrongDeviceIpForSubnetDataProvider() {
-    SubnetUtils subnetForBusinessConfig = new SubnetUtils(businessConfiguration.getGlobalNetworkMask());
     return Stream.of(
-            Arguments.of("172.28.255.253", "172.29.255.253" + DEVICE_RANGE_MASK),
-            Arguments.of("172.28.0.1", "172.28.0.5" + DEVICE_RANGE_MASK),
-            Arguments.of("0.0.0.0", "0.0.0.0" + DEVICE_RANGE_MASK)
+            Arguments.of("172.28.255.252"),
+            Arguments.of("172.28.0.2"),
+            Arguments.of("0.0.0.0")
     );
   }
 

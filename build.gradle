@@ -25,6 +25,9 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
+	// Библиотеки для работы с IP адресами и подсетями.
+	// В дальнейшем планируется оставить только com.github.seancfoley:ipaddress
 	compile group: 'commons-net', name: 'commons-net', version: '3.6'
 	implementation 'com.github.seancfoley:ipaddress:5.2.1'
 }

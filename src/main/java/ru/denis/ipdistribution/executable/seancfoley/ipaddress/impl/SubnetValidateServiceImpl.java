@@ -21,9 +21,9 @@ public class SubnetValidateServiceImpl implements SubnetValidateService {
   }
 
   @Override
-  public void isItDeviceIpForSubnet(String ipForCheck, String subnetString) {
+  public void isItDeviceIpForSubnet(String ipForCheck, String subnetMask) {
     IPv4Address inputAddress = new IPAddressString(ipForCheck).getAddress().toIPv4();
-    IPv4Address subnet = new IPAddressString(subnetString).getAddress().toIPv4().toPrefixBlock();
+    IPv4Address subnet = new IPAddressString(ipForCheck + subnetMask).getAddress().toIPv4().toPrefixBlock();
     String subnetDeviceIp = subnet.toSequentialRange().stream().collect(Collectors.toList()).get(1).toString();
 
     // Является ли входящий ip первым хостом(ip устройства) в своей подсети

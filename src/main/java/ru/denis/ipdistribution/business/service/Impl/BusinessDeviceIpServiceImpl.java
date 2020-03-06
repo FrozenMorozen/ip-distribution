@@ -26,16 +26,16 @@ public class BusinessDeviceIpServiceImpl implements BusinessDeviceIpService {
 
     // Проверить входящий ip
     subnetValidateService.validateIpFormat(inputIp);
-    subnetValidateService.containsIpInNetwork(inputIp, configuration.getGlobalNetworkMask());
+    subnetValidateService.containsIpInNetwork(inputIp, configuration.getGlobalSubnetIpWithCidr());
 
     // Является ли входящий ip первым хостом(ip устройства) в своей подсети
-    subnetValidateService.isItDeviceIpForSubnet(inputIp, inputIp + configuration.getDeviceIpRangeMask());
+    subnetValidateService.isItDeviceIpForSubnet(inputIp, configuration.getDeviceIpRangeMask());
 
     // ip устройства в следующей подсети (ip первого хоста в подсети)
     String nextDeviceIp = deviceIpService.getNextDeviceIp(inputIp, configuration.getDeviceIpRangeMask());
 
     // Проверить, принадлжеит ли ip устройства глобальной подсети
-    subnetValidateService.containsIpInNetwork(nextDeviceIp, configuration.getGlobalNetworkMask());
+    subnetValidateService.containsIpInNetwork(nextDeviceIp, configuration.getGlobalSubnetIpWithCidr());
 
     return nextDeviceIp;
   }

@@ -4,16 +4,18 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 
 @Configuration
+@PropertySource("classpath:business.properties")
 @Getter
 @Setter
 public class BusinessConfiguration {
 
-  @Value("${ip.global.range}")
-  private String globalNetworkMask;
+  @Value("${global.subnet.IP.with.CIDR}")
+  private String globalSubnetIpWithCidr;
 
-  @Value("${ip.pick.range.value}")
+  @Value("${device.IP.range.mask}")
   private String deviceIpRangeMask;
 }

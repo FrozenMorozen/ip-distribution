@@ -22,8 +22,8 @@ public class SubnetValidateServiceImpl implements SubnetValidateService {
   }
 
   @Override
-  public void isItDeviceIpForSubnet(String ipForCheck, String subnetString) {
-    SubnetUtils subnet = new SubnetUtils(subnetString);
+  public void isItDeviceIpForSubnet(String ipForCheck, String subnetMask) {
+    SubnetUtils subnet = new SubnetUtils(ipForCheck + subnetMask);
     String deviceIpForSubnet = subnet.getInfo().getLowAddress();
     if (!deviceIpForSubnet.equals(ipForCheck)) {
       throw new IllegalArgumentException(

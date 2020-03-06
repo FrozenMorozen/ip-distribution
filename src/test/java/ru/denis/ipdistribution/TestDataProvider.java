@@ -13,12 +13,12 @@ public class TestDataProvider {
   public static DeviceIpService deviceIpService;
 
   static {
-    businessConfiguration.setGlobalNetworkMask("172.28.0.0/16");
+    businessConfiguration.setGlobalSubnetIpWithCidr("172.28.0.0/16");
     businessConfiguration.setDeviceIpRangeMask("/30");
 //    deviceIpService = new DeviceIpServiceImpl(new IpCalcServiceImpl());
     deviceIpService = new DeviceIpServiceImpl();
 
-    GLOBAL_NETWORK_STRING = businessConfiguration.getGlobalNetworkMask();
+    GLOBAL_NETWORK_STRING = businessConfiguration.getGlobalSubnetIpWithCidr();
     DEVICE_RANGE_MASK = businessConfiguration.getDeviceIpRangeMask();
   }
 
